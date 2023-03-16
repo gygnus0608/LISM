@@ -8,7 +8,7 @@ import axios from 'axios';
 onMounted(()=>{
   const baseUrl="https://www.fastmock.site/mock/0c62ca2d24e66db31b4dc6869ebb94b8/api"
   axios.get(`${baseUrl}/allUser`).then(({data})=>{
-    console.log(data)
+    // console.log(data)
   })
 })
 </script>

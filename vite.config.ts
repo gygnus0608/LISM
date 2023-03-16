@@ -30,7 +30,16 @@ export default defineConfig({
   // 解析配置
   resolve:{
     alias:{
-      "@":resolve(__dirname,"/src")
+      "@":resolve(__dirname,"src")
+    }
+  },
+  server:{
+    cors:true,
+    proxy:{
+      '/lism':{
+        target: 'http://111.230.194.48',
+        changeOrigin: true,  
+      }
     }
   }
 })

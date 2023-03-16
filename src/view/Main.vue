@@ -1,17 +1,32 @@
 <template>
-    <div>
-        左侧菜单
-    </div>
-    <div>
-        头部
-    </div>
-    <div>这部分变化</div>
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+        <CommonHeader></CommonHeader>
+      </el-header>
+      <el-container>
+        <CommonAside/>
+        <router-view/>
+      </el-container>
+    </el-container>
+  </div>
 </template>
-
-<script setup lang="ts">
-
+  
+<script lang="ts">
+import CommonHeader from '../components/CommonHeader.vue';
+import CommonAside from '../components/CommonAside.vue';
+import { defineComponent } from 'vue';
+export default defineComponent({
+    components:{
+        CommonHeader,
+        CommonAside
+    }
+})
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+  .el-header{
+    height: 80px;
+    background: rgba(0,64,255,0.36);
+  }
 </style>
