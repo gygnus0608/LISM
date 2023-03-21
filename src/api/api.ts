@@ -44,7 +44,7 @@ import {GetEquipmentData,GetEquipmentId,DeleteEquipmentInfo,GetNewEquipment,GetU
 // 设备服务记录
 import {GetServiceData,GetServiceId,DeleteServiceInfo,GetNewService,GetUpdateService} from '../type/equipmentService'
 // 文件管理
-import {GetFileData,GetFileId,DeleteFileInfo,GetNewFile,GetUpdateFile,GetFileTypeData,GetFileTypeId} from '../type/fileService'
+import {GetFileData,GetFileId,DeleteFileInfo,GetNewFile,GetUpdateFile,GetFileTypeData,GetFileTypeId,DownLoadFile} from '../type/fileService'
 // 文件类型管理
 import {DeleteFileTypeInfo,GetNewFileType,GetUpdateFileType} from '../type/fileType'
 
@@ -505,23 +505,23 @@ export const getUpdateCirculation = (data:GetUpdateCirculation) =>service({
 
 // 检测结果列表
 export const getResultList = (data:GetResultData) =>service({
-    url:'/LISM_circulation/GetDataTable',method:'post',data
+    url:'/LISM_testResult/GetDataTable',method:'post',data
 })
 // 通过resultName获取resultId
 export const getResultId = (data:GetResultId) =>service({
-    url:'/LISM_circulation/GetCirculationId',method:'post',data
+    url:'/LISM_testResult/GetResultId',method:'post',data
 })
 // 删除任务流转单
 export const deleteResultInfo = (data:DeleteResultInfo) =>service({
-    url:'/LISM_circulation/Delete',method:'post',data
+    url:'/LISM_testResult/Delete',method:'post',data
 })
 // 新增任务流转单
 export const getNewResult = (data:GetNewResult) =>service({
-    url:'/LISM_circulation/Insert',method:'post',data
+    url:'/LISM_testResult/Insert',method:'post',data
 })
 // 修改任务流转单
 export const getUpdateResult = (data:GetUpdateResult) =>service({
-    url:'/LISM_circulation/Update',method:'post',data
+    url:'/LISM_testResult/Update',method:'post',data
 })
 
 
@@ -743,12 +743,16 @@ export const deleteFileInfo = (data:DeleteFileInfo) =>service({
     url:'/LISM_fileService/Delete',method:'post',data
 })
 // 新增文件信息
-export const getNewFileInfo = (data:GetNewFile) =>service({
+export const getNewFileInfo = (data:FormData) =>service({
     url:'/LISM_fileService/Insert',method:'post',data
 })
 // 修改文件信息
 export const getUpdateFileInfo = (data:GetUpdateFile) =>service({
     url:'/LISM_fileService/Update',method:'post',data
+})
+// 下载文件
+export const downLoadFile = (data:DownLoadFile) =>service({
+    url:'/LISM_fileService/Download',method:'post',data
 })
 
 

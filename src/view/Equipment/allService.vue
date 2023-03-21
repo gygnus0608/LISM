@@ -6,26 +6,6 @@
     <el-form-item label="记录表名称">
       <el-input v-model="getServiceId.serviceName" placeholder="请输入记录表名称" />
     </el-form-item>
-    <el-form-item label="发起人员">
-      <el-select  v-model="getUserId.userName" clearable placeholder="请选择发起人员">
-        <el-option 
-        v-model="getUserId.userName" 
-        v-for="item in user"
-        :key="item.USERID" 
-        :label="item.USERNAME"
-        :value="item.USERNAME" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="执行人员">
-      <el-select  v-model="getUserId.userName" clearable placeholder="请选择执行人员">
-        <el-option 
-        v-model="getUserId.userName" 
-        v-for="item in user"
-        :key="item.USERID" 
-        :label="item.USERNAME"
-        :value="item.USERNAME" />
-      </el-select>
-    </el-form-item>
     <el-form-item>
       <el-button class="button" @click="onSubmit">查询</el-button>
     </el-form-item>
@@ -269,33 +249,11 @@ export default defineComponent({
       }
       const onSubmit = () =>{
         getServiceIdInfo()
-        getUserIdInfo()
         let arr:any[]=[];
-        if(data.getServiceId.serviceName || data.getUserId.userName){
-          if(data.getServiceId.serviceName){
-            if(data.getUserId.userName){
-            arr = data.list.filter((value)=>{
-              return value.SERVICENAME.indexOf(data.getServiceId.serviceName) !== -1 && (value.IMUSERNAME.indexOf(data.getUserId.userName) !== -1 || value.SPUSERNAME.indexOf(data.getUserId.userName) !== -1)
-              })
-              console.log(arr)
-              data.list = arr
-            }
-            arr = data.list.filter((value)=>{
-              return value.SERVICENAME.indexOf(data.getServiceId.serviceName) !== -1
-            })
-          }
-          if(data.getUserId.userName){
-            if(data.getServiceId.serviceName){
-              arr = data.list.filter((value)=>{
-              return value.SERVICENAME.indexOf(data.getServiceId.serviceName) !== -1 && (value.IMUSERNAME.indexOf(data.getUserId.userName) !== -1 || value.SPUSERNAME.indexOf(data.getUserId.userName) !== -1)
-              })
-              console.log(arr)
-              data.list = arr
-            }
-            arr = data.list.filter((value)=>{
-              return value.IMUSERNAME.indexOf(data.getUserId.userName) !== -1 || value.SPUSERNAME.indexOf(data.getUserId.userName) !== -1
-            })
-          }
+        if(data.getServiceId.serviceName){
+          arr = data.list.filter((value)=>{
+            return value.SERVICENAME.indexOf(data.getServiceId.serviceName) !== -1 
+          })
         }
         else{
           arr = data.list
@@ -325,10 +283,10 @@ export default defineComponent({
       }
       const updateService=()=>{
         getUpdateServiceInfo(data.getUpdateService).then((res)=>{
+          getServices()
+          data.updateIsShow=false
           // console.log(res)
         });
-        getServices()
-        data.updateIsShow=false
       }
       const save = ()=>{
           data.insertIsShow=false
@@ -339,11 +297,8 @@ export default defineComponent({
       }
       const insertConfirm=()=>{
           data.insertIsShow=false
-          getNewServiceInfo(data.getNewService).then((res)=>{
-            // console.log(res)
-            getServices()
-            
-          })
+          getNewServiceInfo(data.getNewService)
+          getServices()
           
       }
       const deleteService=(row:ListInt)=>{

@@ -6,10 +6,6 @@ export interface ListInt{
     MODIFICATIONTIME:string,
     REMARKS:string,
 }
-// interface filePathInt{
-//     name:string,
-//     url:string
-// }
 // 展示文件类型列表
 export interface fileTypeListInt{
     FILETYPEID:number,
@@ -40,6 +36,7 @@ export interface GetNewFile{
     myFile:string,
     fileTypeName:string,
     remarks:string
+    input:string
 }
 // 修改文件信息
 export interface GetUpdateFile{
@@ -54,9 +51,10 @@ export interface DeleteFileInfo{
     token:any,
     fileId:number
 }
-// 接收文件路径
-export interface Headers{
-    token:any
+// 下载文件信息
+export interface DownLoadFile{
+    token:any,
+    fileId:number
 }
 interface selectDataInt{
     page:number,//页码
@@ -68,9 +66,6 @@ export class InitData{
         page:1,
         count:0,//总数
         pagesize:5 //一页放多少条数据
-    }
-    headers:Headers={
-        token:localStorage.getItem('token')
     }
     // 展示所有文件信息
     token:GetFileData={
@@ -92,7 +87,8 @@ export class InitData{
         fileId:1,
         myFile:'',
         fileTypeName:'',
-        remarks:''
+        remarks:'',
+        input:''
     }
     // 修改文件信息
     getUpdateFile:GetUpdateFile={
@@ -101,6 +97,11 @@ export class InitData{
         myFile:'',
         fileTypeName:'',
         remarks:''
+    }
+    // 通过FileId下载
+    downLoadFile:DownLoadFile={
+        token:localStorage.getItem('token'),
+        fileId:1
     }
     list:ListInt[]=[]//展示的内容数据
 

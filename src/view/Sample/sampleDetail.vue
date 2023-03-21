@@ -156,10 +156,8 @@
           .then(() => {
           //删除接口只需要传个id就行了 id是当前点击事件传过来的的id 
           data.deleteDetailInfo.detailId=row.DETAILID
-          deleteDetailInfo(data.deleteDetailInfo).then((res) => {
-            // console.log(res)
-            getDetails()
-          });
+          deleteDetailInfo(data.deleteDetailInfo)
+          getDetails()
         })
         //取消删除
         .catch(() => {

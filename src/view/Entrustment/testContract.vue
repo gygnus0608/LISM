@@ -127,9 +127,9 @@
         const updateContract=()=>{
           getUpdateContractInfo(data.getUpdateContract).then((res)=>{
             console.log(res)
-          });
           data.updateIsShow=false
           getContracts()
+          });
         }
         const save = ()=>{
             data.insertIsShow=false
@@ -157,9 +157,10 @@
           //删除接口只需要传个id就行了 id是当前点击事件传过来的的id 
           data.deleteContractInfo.contractId=row.CONTRACTID
           deleteContractInfo(data.deleteContractInfo).then((res) => {
-            // console.log(res)
+            console.log(res)
             getContracts()
           });
+          getContracts()
         })
         //取消删除
         .catch(() => {

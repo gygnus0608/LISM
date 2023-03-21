@@ -33,7 +33,7 @@
       <el-table-column prop="role" label="操作" min-width="150px">
       <template #default="scope">
         <el-button  @click="changeCirculation(scope.row)"
-          >完成</el-button>
+          >中断作业</el-button>
       </template>
     </el-table-column>
     </el-table>

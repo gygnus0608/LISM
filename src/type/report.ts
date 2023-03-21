@@ -1,36 +1,26 @@
 export interface ListInt{
     REPORTID:number,
     REPORTNAME:string,
+    CIRCULATIONNAME:string,
     ENTRUSTMENTNAME:string,
-    USERNAME:string,
-    STBATCH1:string,
+    RESULTNAME:string,
+    USERNAME1:string,
+    SAMPLENAME:string,
+    STBATCH:string,
     STMODE:string,
     STNUM:number,
-    LEVELNAME:string,
-    TESTRANK1:string,
-    TESTDATA1:string,
+    TESTRANK:string,
     DATANAMENAME:string,
+    TESTDATA:string,
     EQUIPMENTNAME:string,
+    FILEPATH:string,
     TESTTIME:string,
     TESTPLACE:string,
-    REPORTFILE:string,
-    REMARK:string,
+    REMARK:any,
     STATUS:string,
-    token:any,
-    resultName:string,
-    templateName:string,
-    dataNameName:string,
-    testRank:string,
-    testData:string,
-    testTime:string,
-    testPlace:string,
-    sampleNumber:number,
-    equipmentName:string,
-    remark:string,
-    status:string,
-    reportFile:string,
+    FILENAME:string,
 }
-// 展示工作人员列表
+// 展示员工信息
 export interface UserListInt{
     USERID:number,
     USERNAME:string,
@@ -39,21 +29,16 @@ export interface UserListInt{
 export interface ResultListInt{
     RESULTID:number,
     RESULTNAME:string,
-    TESTRANK1:string,
-    TESTDATA1:string
+    TESTRANK:string,
+    TESTDATA:string,
 }
-// 展示样品标签模板
-export interface TemplateListInt{
-    TEMPLATEID:number,
-    TEMPLATENAME:string,
-    STBATCH1:string,
+// 展示样品
+export interface SampleListInt{
+    SAMPLEID:number,
+    SAMPLENAME:string,
+    STBATCH:string,
     STMODE:string,
     STNUM:number
-}
-// 展示样品档次
-export interface LevelListInt{
-    lEVELID:number,
-    LEVELNAME:string,
 }
 // 展示检测数据名称
 export interface DataNameListInt{
@@ -70,10 +55,19 @@ export interface EntrustmentListInt{
     ENTRUSTMENTID:number,
     ENTRUSTMENTNAME:string,
 }
+// 展示任务单
+export interface CirculationListInt{
+    CIRCULATIONID:number,
+    CIRCULATIONNAME:string,
+}
+// 展示文件
+export interface FileListInt{
+    FILEID:number,
+    FILENAME:string,
+}
 
 
-
-// 获取工作人员信息
+// 获取员工信息
 export interface GetUserData{
     token:any
 }
@@ -91,25 +85,18 @@ export interface GetResultId{
     token:any,
     resultName:string
 }
-// 获取样品标签模板
-export interface GetTemplateData{
+
+// 获取样品
+export interface GetSampleData{
     token:any
 }
-// 通过templateName获取templateId
-export interface GetTemplateId{
+// 通过sampleName获取sampleId
+export interface GetSampleId{
     token:any,
-    templateName:string
+    sampleName:string
 }
-// 获取样品档次
-export interface GetLevelData{
-    token:any
-}
-// 通过levelName获取levelId
-export interface GetLevelId{
-    token:any,
-    levelName:string
-}
-// 获取检测数据名称
+
+// 获取检测数据
 export interface GetDataNameData{
     token:any
 }
@@ -118,6 +105,7 @@ export interface GetDataNameId{
     token:any,
     dataNameName:string
 }
+
 // 获取设备名称
 export interface GetEquipmentData{
     token:any
@@ -127,6 +115,7 @@ export interface GetEquipmentId{
     token:any,
     equipmentName:string
 }
+
 // 获取委托单
 export interface GetEntrustmentData{
     token:any
@@ -135,6 +124,26 @@ export interface GetEntrustmentData{
 export interface GetEntrustmentId{
     token:any,
     entrustmentName:string
+}
+
+// 获取任务单
+export interface GetCirculationData{
+    token:any
+}
+// 通过CirculationName获取CirculationId
+export interface GetCirculationId{
+    token:any,
+    circulationName:string
+}
+
+// 获取文件
+export interface GetFileData{
+    token:any
+}
+// 通过fileName获取fileId
+export interface GetFileId{
+    token:any,
+    fileName:string
 }
 
 
@@ -153,48 +162,30 @@ export interface GetNewReport{
     token:any,
     reportId:number,
     reportName:string,
-    userName:string,
     resultName:string,
-    templateName:string,
-    stModel:string,
-    stBatch:string,
-    stNum:number,
-    levelName:string,
-    dataNameName:string,
-    testRank:string,
-    testData:string,
+    sampleName:string,
+    equipmentName:string,
+    entrustmentName:string,
     testTime:string,
     testPlace:string,
-    sampleNumber:number,
-    equipmentName:string,
     remark:string,
-    entrustmentName:string,
     status:string,
-    reportFile:string,
+    fileName:string
 }
 // 修改报告信息
 export interface GetUpdateReport{
     token:any,
     reportId:number,
     reportName:string,
-    userName:string,
     resultName:string,
-    templateName:string,
-    stModel:string,
-    stBatch:string,
-    stNum:number,
-    levelName:string,
-    dataNameName:string,
-    testRank:string,
-    testData:string,
+    sampleName:string,
+    equipmentName:string,
+    entrustmentName:string,
     testTime:string,
     testPlace:string,
-    sampleNumber:number,
-    equipmentName:string,
     remark:string,
-    entrustmentName:string,
     status:string,
-    reportFile:string,
+    fileName:string
 }
 // 删除报告信息
 export interface DeleteReportInfo{
@@ -231,58 +222,41 @@ export class InitData{
         token:localStorage.getItem('token'),
         reportId:1,
         reportName:'',
-        userName:'',
         resultName:'',
-        templateName:'',
-        stModel:'',
-        stBatch:'',
-        stNum:0,
-        levelName:'',
-        dataNameName:'',
-        testRank:'',
-        testData:'',
+        sampleName:'',
+        equipmentName:'',
+        entrustmentName:'',
         testTime:'',
         testPlace:'',
-        sampleNumber:0,
-        equipmentName:'',
         remark:'',
-        entrustmentName:'',
         status:'',
-        reportFile:'',
+        fileName:''
     }
     // 修改报告信息
     getUpdateReport:GetUpdateReport={
         token:localStorage.getItem('token'),
         reportId:1,
         reportName:'',
-        userName:'',
         resultName:'',
-        templateName:'',
-        stModel:'',
-        stBatch:'',
-        stNum:0,
-        levelName:'',
-        dataNameName:'',
-        testRank:'',
-        testData:'',
+        sampleName:'',
+        equipmentName:'',
+        entrustmentName:'',
         testTime:'',
         testPlace:'',
-        sampleNumber:0,
-        equipmentName:'',
         remark:'',
-        entrustmentName:'',
         status:'',
-        reportFile:'',
+        fileName:''
     }
     list:ListInt[]=[]//展示的内容数据
 
     user:UserListInt[]=[]
     result:ResultListInt[]=[]
-    template:TemplateListInt[]=[]
-    level:LevelListInt[]=[]
+    sample:SampleListInt[]=[]
     dataName:DataNameListInt[]=[]
     equipment:EquipmentListInt[]=[]
     entrustment:EntrustmentListInt[]=[]
+    circulation:CirculationListInt[]=[]
+    file:FileListInt[]=[]
 
     userToken:GetUserData={
         token:localStorage.getItem('token')
@@ -302,22 +276,13 @@ export class InitData{
         resultName:''
     }
 
-    templateToken:GetTemplateData={
+    sampleToken:GetSampleData={
         token:localStorage.getItem('token')
     }
-    // 通过templateName获取templateId 
-    getTemplateId:GetTemplateId={
+    // 通过sampleName获取sampleId 
+    getSampleId:GetSampleId={
         token:localStorage.getItem('token'),
-        templateName:''
-    }
-
-    levelToken:GetLevelData={
-        token:localStorage.getItem('token')
-    }
-    // 通过levelName获取levelId 
-    getLevelId:GetLevelId={
-        token:localStorage.getItem('token'),
-        levelName:''
+        sampleName:''
     }
 
     dataNameToken:GetDataNameData={
@@ -341,10 +306,28 @@ export class InitData{
     entrustmentToken:GetEntrustmentData={
         token:localStorage.getItem('token')
     }
-    // 通过entrustmentName获取entrustmentId 
+    // 通过EntrustmentName获取EntrustmentId 
     getEntrustmentId:GetEntrustmentId={
         token:localStorage.getItem('token'),
         entrustmentName:''
+    }
+
+    circulationToken:GetCirculationData={
+        token:localStorage.getItem('token')
+    }
+    // 通过CirculationName获取CirculationId 
+    getCirculationId:GetCirculationId={
+        token:localStorage.getItem('token'),
+        circulationName:''
+    }
+
+    fileToken:GetFileData={
+        token:localStorage.getItem('token')
+    }
+    // 通过fileName获取fileId 
+    getFileId:GetFileId={
+        token:localStorage.getItem('token'),
+        fileName:''
     }
     
     updateIsShow=false

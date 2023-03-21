@@ -1,6 +1,6 @@
 <template>
     <div class="contain-box">
-      <!-- <div class="header-box">
+      <div class="header-box">
         <div class="select-box">
         <el-form :inline="true" :model="getUserId" class="demo-form-inline">
       <el-form-item label="姓名">
@@ -22,13 +22,12 @@
       
     </el-form>
       </div>
-      <div class="new-box">
+      <div class="new-box" >
         <el-form-item>
-          <el-button class="button" @click="onInsert">新增</el-button>
+          <el-button class="button"  @click="onInsert">新增</el-button>
         </el-form-item>
       </div>
-      </div> -->
-    
+      </div>
       
       <el-table :data="dataList.comList" border height="400" style="width: 100% " >
         <el-table-column prop="USERID" label="用户id"  />
@@ -38,10 +37,9 @@
         <el-table-column prop="BIRTHDAY" label="生日" />
         <el-table-column prop="ADDRESS" label="地址" />
         <el-table-column prop="PHONE" label="电话" />
-        <el-table-column prop="USERPWD" label="密码" />
         <el-table-column prop="MAIL" label="邮箱" />
         <el-table-column prop="USERROLE" label="角色" />
-        <el-table-column prop="role" label="操作" min-width="180px">
+        <el-table-column prop="role"  label="操作" min-width="180px">
         <template #default="scope">
           <el-button  @click="changeUser(scope.row)"
             >编辑</el-button>
@@ -163,29 +161,25 @@
   </template>
 
 <script lang="ts">
-import { onBeforeMount,onMounted,toRefs,reactive} from 'vue';
+import { onMounted,onBeforeMount,toRefs,reactive} from 'vue';
 import { getUserList,getUserId,getNewUserInfo,getDepartmentList,getDepartmentId,deleteUserInfo,getUpdateUserInfo } from '@/api/api';
-import {InitData,ListInt} from '../type/user'
+import {InitData,ListInt} from '@/type/user'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import 'element-plus/es/components/message-box/style/index'
 import 'element-plus/es/components/message/style/index'
 export default defineComponent({
     setup(){
         const data = reactive(new InitData())
-        onBeforeMount(()=>{
+        onMounted(()=>{
             getUsers()
             getDepartment()
         })
-        let arr:any[]=[];
         const getUsers=()=>{
             getUserList(data.token).then((res)=>{
-              arr = res.data.filter((value:any)=>{
-              return value.USERNAME == localStorage.getItem('username')
-              })
-              // console.log(arr)
-              data.list = arr
-              console.log(data.list)
-          })
+              console.log(res.data)
+            data.list=res.data
+            data.selectData.count = res.data.length
+            });
         }
         const getDepartment=()=>{
           getDepartmentList(data.departmentToken).then((res)=>{
@@ -200,13 +194,21 @@ export default defineComponent({
         const sizeChange=(pagesize:number)=>{
             data.selectData.pagesize=pagesize
         }
+        
+        
         const dataList = reactive({
             comList:computed(()=>{
                 return data.list.slice(
                     (data.selectData.page-1)*data.selectData.pagesize,
                     data.selectData.page*data.selectData.pagesize)
-            })
+            }),
+            // roleList:computed(()=>{
+            //   return data.list.filter((value:any)=>{
+            //   return value.USERNAME == localStorage.getItem('username')
+            //   })
+            // })
         })
+            
         const getUserIdInfo = () =>{
           getUserId(data.getUserId).then((res)=>{
             // console.log(res)
@@ -227,7 +229,7 @@ export default defineComponent({
               arr = data.list.filter((value)=>{
                 return value.USERNAME.indexOf(data.getUserId.userName) !== -1 && value.DEPARTMENTNAME.indexOf(data.getDepartmentId.departmentName) !== -1
                 })
-                console.log(arr)
+                // console.log(arr)
                 data.list = arr
               }
               arr = data.list.filter((value)=>{
@@ -239,7 +241,7 @@ export default defineComponent({
                 arr = data.list.filter((value)=>{
                 return value.USERNAME.indexOf(data.getUserId.userName) !== -1 && value.DEPARTMENTNAME.indexOf(data.getDepartmentId.departmentName) !== -1
                 })
-                console.log(arr)
+                // console.log(arr)
                 data.list = arr
               }
               arr = data.list.filter((value)=>{
@@ -275,10 +277,9 @@ export default defineComponent({
         }
         const updateUser=()=>{
           getUpdateUserInfo(data.getUpdateUser).then((res)=>{
-            // console.log(res)
-          });
           getUsers()
           data.updateIsShow=false
+          });
         }
         const save = ()=>{
             data.insertIsShow=false
@@ -341,9 +342,6 @@ export default defineComponent({
         display: flex;
         justify-content: space-between;
         // margin:10px
-    }
-    .body-box{
-      margin: 50px 300px;
     }
     .select-box{
         .button{

@@ -10,6 +10,18 @@ export interface ListInt{
     MAIL:string,
     USERROLE:number
 }
+export interface List111{
+    userId:number,
+    userName:string,
+    gender:string,
+    departmentName:string,
+    birthday:string,
+    address:string,
+    phone:string,
+    userPwd:string
+    mail:string,
+    userRole:number
+}
 // 展示部门列表
 export interface DepartmentListInt{
     USERID:number,
@@ -137,6 +149,19 @@ export class InitData{
         userRole:4
     }
     list:ListInt[]=[]//展示的内容数据
+
+    list111:List111={
+        userId:1,
+        userName:'',
+        gender:'',
+        departmentName:'',
+        birthday:'',
+        address:'',
+        phone:'',
+        mail:'',
+        userPwd:'',
+        userRole:4
+    }
 
     department:DepartmentListInt[]=[]
 

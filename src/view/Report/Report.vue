@@ -33,18 +33,20 @@
       <el-table-column prop="REPORTID" label="报告id"  />
       <el-table-column prop="REPORTNAME" label="报告单"  />
       <el-table-column prop="ENTRUSTMENTNAME" label="委托单" />
-      <el-table-column prop="USERNAME" label="测试人员" />
-      <el-table-column prop="STBATCH1" label="样品型号" />
+      <el-table-column prop="CIRCULATIONNAME" label="任务单" />
+      <el-table-column prop="RESULTNAME" label="检测结果" />
+      <el-table-column prop="USERNAME1" label="测试人员" />
+      <el-table-column prop="SAMPLENAME" label="样品名称" />
+      <el-table-column prop="STBATCH" label="样品型号" />
       <el-table-column prop="STMODE" label="样品批号" />
       <el-table-column prop="STNUM" label="样品数量" />
-      <el-table-column prop="LEVELNAME" label="样品档次" />
-      <el-table-column prop="TESTRANK1" label="测量编号" />
-      <el-table-column prop="TESTDATA1" label="测量数据名称" />
-      <el-table-column prop="DATANAMENAME" label="检测值" />
+      <el-table-column prop="TESTRANK" label="测量编号" />
+      <el-table-column prop="DATANAMEID" label="测量数据名称" />
+      <el-table-column prop="TESTDATA" label="检测值" />
       <el-table-column prop="EQUIPMENTNAME" label="设备名称" />
       <el-table-column prop="TESTTIME" label="测试时间" />
       <el-table-column prop="TESTPLACE" label="测试地点" />
-      <el-table-column prop="REPORTFILE" label="报告文件地址" />
+      <el-table-column prop="FILEPATH" label="报告文件地址" />
       <el-table-column prop="REMARK" label="备注" />
       <el-table-column prop="STATUS" label="状态" />
       <el-table-column prop="role" label="操作" min-width="180px">
@@ -72,80 +74,26 @@
         :value="item.ENTRUSTMENTNAME" />
       </el-select>
     </el-form-item>
-    <el-form-item label="测试人员">
-      <el-select  v-model="getUpdateReport.userName"  placeholder="请选择测试人员">
+    <el-form-item label="样品名称">
+      <el-select  v-model="getUpdateReport.sampleName"  placeholder="请选择样品名称">
         <el-option 
-        v-for="item in user"
-        :key="item.USERID" 
-        :label="item.USERNAME"
-        :value="item.USERNAME" />
+        v-for="item in sample"
+        :key="item.SAMPLEID" 
+        :label="item.SAMPLENAME"
+        :value="item.SAMPLENAME" />
       </el-select>
     </el-form-item>
-    <el-form-item label="样品批号">
-      <el-select  v-model="getUpdateReport.stBatch"  placeholder="请选择样品批号">
-        <el-option 
-        v-for="item in template"
-        :key="item.TEMPLATEID" 
-        :label="item.STBATCH1"
-        :value="item.STBATCH1" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="样品型号">
-      <el-select  v-model="getUpdateReport.stModel"  placeholder="请选择样品型号">
-        <el-option 
-        v-for="item in template"
-        :key="item.TEMPLATEID" 
-        :label="item.STMODE"
-        :value="item.STMODE" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="样品数量">
-      <el-select  v-model="getUpdateReport.stNum"  placeholder="请选择样品数量">
-        <el-option 
-        v-for="item in template"
-        :key="item.TEMPLATEID" 
-        :label="item.STNUM"
-        :value="item.STNUM" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="样品档次">
-      <el-select  v-model="getUpdateReport.levelName"  placeholder="请选择样品档次">
-        <el-option 
-        v-for="item in level"
-        :key="item.lEVELID" 
-        :label="item.LEVELNAME"
-        :value="item.LEVELNAME" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="测量编号">
-      <el-select  v-model="getUpdateReport.testRank"  placeholder="请选择测量编号">
+    <el-form-item label="检测结果">
+      <el-select  v-model="getUpdateReport.resultName"  placeholder="请选择检测结果">
         <el-option 
         v-for="item in result"
         :key="item.RESULTID" 
-        :label="item.TESTRANK1"
-        :value="item.TESTRANK1" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="检测数据名称">
-      <el-select  v-model="getUpdateReport.dataNameName"  placeholder="请选择检测数据名称">
-        <el-option 
-        v-for="item in dataName"
-        :key="item.DATANAMEID" 
-        :label="item.DATANAMENAME"
-        :value="item.DATANAMENAME" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="检测值">
-      <el-select  v-model="getUpdateReport.testData"  placeholder="请选择检测值">
-        <el-option 
-        v-for="item in result"
-        :key="item.RESULTID" 
-        :label="item.TESTDATA1"
-        :value="item.TESTDATA1" />
+        :label="item.RESULTNAME"
+        :value="item.RESULTNAME" />
       </el-select>
     </el-form-item>
     <el-form-item label="设备名称">
-      <el-select  v-model="getUpdateReport.testData"  placeholder="请选择设备名称">
+      <el-select  v-model="getUpdateReport.equipmentName"  placeholder="请选择设备名称">
         <el-option 
         v-for="item in equipment"
         :key="item.EQUIPMENTID" 
@@ -153,8 +101,14 @@
         :value="item.EQUIPMENTNAME" />
       </el-select>
     </el-form-item>
-    <el-form-item label="报告文件地址" >
-      <el-input v-model="getUpdateReport.reportFile" autocomplete="off" />
+    <el-form-item label="报告文件名称" >
+      <el-select  v-model="getUpdateReport.fileName"  placeholder="请选择文件名称">
+        <el-option 
+        v-for="item in file"
+        :key="item.FILEID" 
+        :label="item.FILENAME"
+        :value="item.FILENAME" />
+      </el-select>
     </el-form-item>
     <el-form-item label="测试时间" >
       <el-date-picker
@@ -199,80 +153,26 @@
         :value="item.ENTRUSTMENTNAME" />
       </el-select>
     </el-form-item>
-    <el-form-item label="测试人员">
-      <el-select  v-model="getNewReport.userName"  placeholder="请选择测试人员">
+    <el-form-item label="样品名称">
+      <el-select  v-model="getNewReport.sampleName"  placeholder="请选择样品名称">
         <el-option 
-        v-for="item in user"
-        :key="item.USERID" 
-        :label="item.USERNAME"
-        :value="item.USERNAME" />
+        v-for="item in sample"
+        :key="item.SAMPLEID" 
+        :label="item.SAMPLENAME"
+        :value="item.SAMPLENAME" />
       </el-select>
     </el-form-item>
-    <el-form-item label="样品批号">
-      <el-select  v-model="getNewReport.stBatch"  placeholder="请选择样品批号">
-        <el-option 
-        v-for="item in template"
-        :key="item.TEMPLATEID" 
-        :label="item.STBATCH1"
-        :value="item.STBATCH1" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="样品型号">
-      <el-select  v-model="getNewReport.stModel"  placeholder="请选择样品型号">
-        <el-option 
-        v-for="item in template"
-        :key="item.TEMPLATEID" 
-        :label="item.STMODE"
-        :value="item.STMODE" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="样品数量">
-      <el-select  v-model="getNewReport.stNum"  placeholder="请选择样品数量">
-        <el-option 
-        v-for="item in template"
-        :key="item.TEMPLATEID" 
-        :label="item.STNUM"
-        :value="item.STNUM" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="样品档次">
-      <el-select  v-model="getNewReport.levelName"  placeholder="请选择样品档次">
-        <el-option 
-        v-for="item in level"
-        :key="item.lEVELID" 
-        :label="item.LEVELNAME"
-        :value="item.LEVELNAME" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="测量编号">
-      <el-select  v-model="getNewReport.testRank"  placeholder="请选择测量编号">
+    <el-form-item label="检测结果">
+      <el-select  v-model="getNewReport.resultName"  placeholder="请选择检测结果">
         <el-option 
         v-for="item in result"
         :key="item.RESULTID" 
-        :label="item.TESTRANK1"
-        :value="item.TESTRANK1" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="检测数据名称">
-      <el-select  v-model="getNewReport.dataNameName"  placeholder="请选择检测数据名称">
-        <el-option 
-        v-for="item in dataName"
-        :key="item.DATANAMEID" 
-        :label="item.DATANAMENAME"
-        :value="item.DATANAMENAME" />
-      </el-select>
-    </el-form-item>
-    <el-form-item label="检测值">
-      <el-select  v-model="getNewReport.testData"  placeholder="请选择检测值">
-        <el-option 
-        v-for="item in result"
-        :key="item.RESULTID" 
-        :label="item.TESTDATA1"
-        :value="item.TESTDATA1" />
+        :label="item.RESULTNAME"
+        :value="item.RESULTNAME" />
       </el-select>
     </el-form-item>
     <el-form-item label="设备名称">
-      <el-select  v-model="getNewReport.testData"  placeholder="请选择设备名称">
+      <el-select  v-model="getNewReport.equipmentName"  placeholder="请选择设备名称">
         <el-option 
         v-for="item in equipment"
         :key="item.EQUIPMENTID" 
@@ -280,8 +180,14 @@
         :value="item.EQUIPMENTNAME" />
       </el-select>
     </el-form-item>
-    <el-form-item label="报告文件地址" >
-      <el-input v-model="getNewReport.reportFile" autocomplete="off" />
+    <el-form-item label="报告文件名称" >
+      <el-select  v-model="getNewReport.fileName"  placeholder="请选择文件名称">
+        <el-option 
+        v-for="item in file"
+        :key="item.FILEID" 
+        :label="item.FILENAME"
+        :value="item.FILENAME" />
+      </el-select>
     </el-form-item>
     <el-form-item label="测试时间" >
       <el-date-picker
@@ -316,7 +222,7 @@
 
 <script lang="ts">
 import { onMounted,toRefs,reactive} from 'vue';
-import { getReportList,getReportId,getNewReportInfo,deleteReportInfo,getUpdateReportInfo,getUserList,getUserId,getResultList,getResultId,getSampleTemplateList,getSampleTemplateId,getLevelList,getLevelId,getDataNameList,getDataNameId,getEquipmentList,getEquipmentId,getEntrustmentList,getEntrustmentId} from '@/api/api';
+import { getReportList,getReportId,getNewReportInfo,deleteReportInfo,getUpdateReportInfo,getResultList,getUserId,getUserList,getResultId,getSampleList,getSampleId,getDataNameList,getDataNameId,getEquipmentList,getEquipmentId,getEntrustmentList,getEntrustmentId,getCirculationList,getCirculationId,getFileList,getFileId} from '@/api/api';
 import {InitData,ListInt} from '@/type/report'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import 'element-plus/es/components/message-box/style/index'
@@ -328,18 +234,31 @@ export default defineComponent({
           getReports()
           getUser()
           getResult()
-          getTemplate()
-          getLevel()
-          getDataName()
+          getSample()
           getEquipment()
           getEntrustment()
+          getCirculation()
+          getFile()
+          getDataName()
       })
+      let arr:any[]=[]
       const getReports=()=>{
-        // const token:any = localStorage.getItem('token')
-          getReportList(data.token).then((res)=>{
-            // console.log(res)
-          data.list=res.data
-          data.selectData.count = res.data.length
+          getReportList(data.token).then((res1)=>{
+            getCirculationList(data.circulationToken).then((res2)=>{
+              for(let i=0;i<res1.data.length;i++){
+                for(let j=0;j<res2.data.length;j++){
+                  if(res1.data[i].CIRCULATIONID == res2.data[j].CIRCULATIONID){
+                    const obj = Object.assign(res1.data[i],res2.data[j])
+                    arr.push(obj)
+                    data.list = arr
+                    console.log(arr)
+                  }
+                }
+              }
+              
+              // console.log(arr)
+              
+            })
           });
       }
       const getUser=()=>{
@@ -350,25 +269,11 @@ export default defineComponent({
         return data.user
       }
       const getResult=()=>{
-        getUserList(data.resultToken).then((res)=>{
+        getResultList(data.resultToken).then((res)=>{
             // console.log(res)
             data.result = res.data
         })
         return data.result
-      }
-      const getTemplate=()=>{
-        getSampleTemplateList(data.templateToken).then((res)=>{
-            // console.log(res)
-            data.template = res.data
-        })
-        return data.template
-      }
-      const getLevel=()=>{
-        getLevelList(data.levelToken).then((res)=>{
-            // console.log(res)
-            data.level = res.data
-        })
-        return data.level
       }
       const getDataName=()=>{
         getDataNameList(data.dataNameToken).then((res)=>{
@@ -391,6 +296,29 @@ export default defineComponent({
         })
         return data.entrustment
       }
+      const getCirculation=()=>{
+        getCirculationList(data.circulationToken).then((res)=>{
+            // console.log(res)
+            data.circulation = res.data
+        })
+        return data.circulation
+      }
+      const getSample=()=>{
+        getSampleList(data.sampleToken).then((res)=>{
+            // console.log(res)
+            data.sample = res.data
+        })
+        return data.sample
+      }
+      const getFile=()=>{
+        getFileList(data.fileToken).then((res)=>{
+            // console.log(res)
+            data.file = res.data
+        })
+        return data.file
+      }
+
+
       const currenChange=(page:number)=>{
           data.selectData.page=page
       }
@@ -404,14 +332,6 @@ export default defineComponent({
                   data.selectData.page*data.selectData.pagesize)
           })
       })
-      // const getReportIdInfo = () =>{
-      //   getReportId(data.getReportId)
-      // }
-      // const getUserIdInfo = () =>{
-      //   getUserId(data.getUserId).then((res)=>{
-      //     // console.log(res)
-      //   })
-      // }
       const onSubmit = () =>{
         // getReportIdInfo()
         // getUserIdInfo()
@@ -420,7 +340,7 @@ export default defineComponent({
           if(data.getReportId.reportName){
             if(data.getUserId.userName){
             arr = data.list.filter((value)=>{
-              return value.REPORTNAME.indexOf(data.getReportId.reportName) !== -1 && value.USERNAME.indexOf(data.getUserId.userName) !== -1
+              return value.REPORTNAME.indexOf(data.getReportId.reportName) !== -1 && value.USERNAME1.indexOf(data.getUserId.userName) !== -1
               })
               console.log(arr)
               data.list = arr
@@ -432,13 +352,13 @@ export default defineComponent({
           if(data.getUserId.userName){
             if(data.getReportId.reportName){
               arr = data.list.filter((value)=>{
-              return value.REPORTNAME.indexOf(data.getReportId.reportName) !== -1 && value.USERNAME.indexOf(data.getUserId.userName) !== -1
+              return value.REPORTNAME.indexOf(data.getReportId.reportName) !== -1 && value.USERNAME1.indexOf(data.getUserId.userName) !== -1
               })
               console.log(arr)
               data.list = arr
             }
             arr = data.list.filter((value)=>{
-              return value.USERNAME.indexOf(data.getUserId.userName) !== -1
+              return value.USERNAME1.indexOf(data.getUserId.userName) !== -1
             })
           }
         }
@@ -456,20 +376,17 @@ export default defineComponent({
 });
       const changeReport=(row:ListInt)=>{
           data.updateIsShow=true
-          data.getUpdateReport.reportId=row.ReportID
-          data.getUpdateReport.reportName=row.ReportNAME
-          data.getUpdateReport.userName=row.GENDER
-          data.getUpdateReport.resultName=row.UserNAME
-          data.getUpdateReport.templateName=row.BIRTHDAY
-          data.getUpdateReport.stModel=row.ADDRESS
-          data.getUpdateReport.stBatch=row.PHONE
-          data.getUpdateReport.levelName=row.ReportPWD
-          data.getUpdateReport.dataNameName=row.MAIL
-          data.getUpdateReport.testRank=row.ReportROLE
-          data.getUpdateReport.testData=row.ReportROLE
-          data.getUpdateReport.testTime=row.ReportROLE
-          data.getUpdateReport.testPlace=row.ReportROLE
-          data.getUpdateReport.sampleNumber=row.STNUM
+          data.getUpdateReport.reportId=row.REPORTID
+          data.getUpdateReport.reportName=row.REPORTNAME
+          data.getUpdateReport.entrustmentName=row.ENTRUSTMENTNAME
+          data.getUpdateReport.sampleName=row.SAMPLENAME
+          data.getUpdateReport.resultName=row.RESULTNAME
+          data.getUpdateReport.equipmentName=row.EQUIPMENTNAME
+          data.getUpdateReport.testTime=row.TESTTIME
+          data.getUpdateReport.testPlace=row.TESTPLACE
+          data.getUpdateReport.remark=row.REMARK
+          data.getUpdateReport.status=row.STATUS
+          data.getUpdateReport.fileName=row.FILENAME
           return data.getUpdateReport
       }
       const updateReport=()=>{
@@ -488,13 +405,6 @@ export default defineComponent({
       }
       const insertConfirm=()=>{
           data.insertIsShow=false
-          // const dt = new Date(data.getNewReport.birthday)
-          // const year = dt.getFullYear()
-          // const m = dt.getMonth()+1
-          // const month = dt.getMonth()+1<10?'0'+m:m
-          // const d = dt.getDate()
-          // const date = dt.getDate()<10?'0'+d:d
-          // data.getNewReport.birthday = `${year}-${month}-${date}`
           getNewReportInfo(data.getNewReport).then((res)=>{
             // console.log(res)
             getReports()
@@ -511,7 +421,7 @@ export default defineComponent({
         // 确认删除
         .then(() => {
         //删除接口只需要传个id就行了 id是当前点击事件传过来的的id 
-        data.deleteReportInfo.ReportId=row.ReportID
+        data.deleteReportInfo.reportId=row.REPORTID
           // console.log(data.deleteReportInfo)
         deleteReportInfo(data.deleteReportInfo).then((res) => {
           // console.log(res)

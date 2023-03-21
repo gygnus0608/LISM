@@ -17,6 +17,35 @@ const routes= [
                 component: () => import('../view/BasicData/allCustomer.vue')
             },
             {
+                path:'/personal',
+                name: 'personal',
+                // 动态路由
+                meta:{
+                    isShow:false,
+                    title:'首页'
+                },
+                component: () => import('../view/Home.vue')
+            },
+            {
+                path:'/user',
+                name: 'user',
+                meta:{
+                    isShow:true,
+                    title:'员工管理'
+                },
+                children:[
+                    {
+                        path:'/user/allUser',
+                        name:'allUser',
+                        meta:{
+                            isShow:true,
+                            title:'员工列表'
+                        },
+                        component: () => import('../view/User/allUser.vue')
+                    }
+                ]
+            },
+            {
                 path:'/basicData',
                 name: 'basicData',
                 meta:{
@@ -383,6 +412,7 @@ const routes= [
 
 
 // 路由
+// history 前端路由要和后端的保持一致
 const router = createRouter({
     history: createWebHistory(),
     routes
@@ -396,6 +426,8 @@ router.beforeEach((to,from,next)=>{
         next()
     }
 })
+
+
 
 // 导出
 export default router

@@ -160,6 +160,7 @@ export default defineComponent({
           console.log(res)
           getNodes()
         });
+          getNodes()
       })
       //取消删除
       .catch(() => {

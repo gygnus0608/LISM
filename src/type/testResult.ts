@@ -1,18 +1,12 @@
 export interface ListInt{
     RESULTID:number,
     RESULTNAME:string,
-    ORDERTESTNAME:string,
     CIRCULATIONNAME:string,
     TESTRANK:string,
-    DATANAMENAME:string,
     TESTDATA:string,
+    DATANAMENAME:string,
     TESTFIRST:number,
     TESTCYCLE:number
-}
-// 展示委托单下属项目
-export interface OrderTestListInt{
-    ORDERTESTID:number,
-    ORDERTESTNAME:string,
 }
 // 展示检测数据名称
 export interface DataNameListInt{
@@ -24,18 +18,6 @@ export interface CirculationListInt{
     CIRCULATIONID:number,
     CIRCULATIONNAME:string,
 }
-
-
-// 展示委托单下属项目
-export interface GetOrderTestData{
-    token:any
-}
-// 通过orderTestName获取orderTestId
-export interface GetOrderTestId{
-    token:any,
-    orderTestName:string
-}
-
 
 // 展示检测数据名称
 export interface GetDataNameData{
@@ -71,28 +53,26 @@ export interface GetResultId{
 // 新增检测结果信息
 export interface GetNewResult{
     token:any,
-    resultId:1,
-    resultName:'',
-    orderTestName:'',
-    testRank:'',
-    dataNameName:'',
-    testData:'',
-    testFirst:'',
-    testCycle:'',
-    circulationName:'',
+    resultId:number,
+    resultName:string,
+    testRank:string,
+    dataNameName:string,
+    testData:string,
+    testFirst:number,
+    testCycle:number,
+    circulationName:string,
 }
 // 修改检测结果信息
 export interface GetUpdateResult{
     token:any,
-    resultId:1,
-    resultName:'',
-    orderTestName:'',
-    testRank:'',
-    dataNameName:'',
-    testData:'',
-    testFirst:'',
-    testCycle:'',
-    circulationName:'',
+    resultId:number,
+    resultName:string,
+    testRank:string,
+    dataNameName:string,
+    testData:string,
+    testFirst:number,
+    testCycle:number,
+    circulationName:string,
 }
 // 删除检测结果
 export interface DeleteResultInfo{
@@ -129,12 +109,11 @@ export class InitData{
         token:localStorage.getItem('token'),
         resultId:1,
         resultName:'',
-        orderTestName:'',
         testRank:'',
         dataNameName:'',
         testData:'',
-        testFirst:'',
-        testCycle:'',
+        testFirst:1,
+        testCycle:1,
         circulationName:'',
     }
     // 修改检测结果
@@ -142,28 +121,17 @@ export class InitData{
         token:localStorage.getItem('token'),
         resultId:1,
         resultName:'',
-        orderTestName:'',
         testRank:'',
         dataNameName:'',
         testData:'',
-        testFirst:'',
-        testCycle:'',
+        testFirst:1,
+        testCycle:1,
         circulationName:'',
     }
     list:ListInt[]=[]//展示的内容数据
 
-    orderTestItem:OrderTestListInt[]=[]
     dataName:DataNameListInt[]=[]
     circulation:CirculationListInt[]=[]
-
-    orderTestToken:GetOrderTestData={
-        token:localStorage.getItem('token')
-    }
-    // 通过orderTestName获取orderTestId 
-    getOrderTestId:GetOrderTestId={
-        token:localStorage.getItem('token'),
-        orderTestName:''
-    }
 
     dataNameToken:GetDataNameData={
         token:localStorage.getItem('token')

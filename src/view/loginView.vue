@@ -68,6 +68,7 @@ export default defineComponent({
                         console.log(res)
                         // 将token进行保存
                         localStorage.setItem("token",res.token)
+                        localStorage.setItem("username",res.userName)
                         // 跳转到首页
                         router.push('/')
                     })

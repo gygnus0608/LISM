@@ -142,19 +142,19 @@
           </el-select>
         </el-form-item>
         <el-form-item label="样品总数">
-          <el-input-number v-model="getNewOrderTestItem.sampleNum" :min="0" autocomplete="off"/>
+          <el-input v-model="getNewOrderTestItem.sampleNum" clearable allow-create filterable autocomplete="off" />
         </el-form-item>
         <el-form-item label="最大值">
-          <el-input-number v-model="getNewOrderTestItem.orderMax" :min="0" autocomplete="off"/>
+          <el-input v-model="getNewOrderTestItem.orderMax" clearable allow-create filterable autocomplete="off" />
         </el-form-item>
         <el-form-item label="最小值">
-          <el-input-number v-model="getNewOrderTestItem.orderMin" :min="0" autocomplete="off"/>
+          <el-input v-model="getNewOrderTestItem.orderMin" clearable allow-create filterable autocomplete="off" />
         </el-form-item>
         <el-form-item label="标准值">
-          <el-input-number v-model="getNewOrderTestItem.orderStandard" :min="0" autocomplete="off"/>
+          <el-input v-model="getNewOrderTestItem.orderStandard" clearable allow-create filterable autocomplete="off" />
         </el-form-item>
         <el-form-item label="标准工时">
-          <el-input-number v-model="getNewOrderTestItem.orderStandardHour" :min="0" autocomplete="off"/>
+          <el-input v-model="getNewOrderTestItem.orderStandardHour" clearable allow-create filterable autocomplete="off" />
         </el-form-item>
         <el-form-item label="是否提醒">
           <el-radio v-model="getNewOrderTestItem.orderRemind" label=1>1</el-radio>
